@@ -1,0 +1,39 @@
+#on: [workflow_dispatch]
+on:
+ push:
+   paths:
+     - 'api/CustomerAPI/**'
+     - '.github/workflows/*'
+     
+name: Customer Api
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    env:
+      directory: api/CustomerAPI
+      name: [YOUR POSTFIX]
+      
+    steps:
+    - uses: actions/checkout@main
+
+    - name: Log into Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Build image with Azure Container Registry
+      uses: azure/CLI@v1
+      with:
+        azcliversion: latest
+        inlineScript: |
+          az acr build --registry acr${{ env.name }}.azurecr.io --image customerapi:${{ github.run_number }} . -f api/CustomerAPI/Dockerfile
+
+    - name: Deploy API to Azure Container Apps 
+      uses: azure/arm-deploy@v1
+      with:
+        subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
+        resourceGroupName: rg-${{ env.name }}
+        template: ${{ env.directory }}/Bicep/main.bicep
+        parameters: dockerimagetag=${{ github.run_number }} name=${{ env.name }}
+        failOnStdErr: false
+

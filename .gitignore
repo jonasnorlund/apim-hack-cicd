@@ -3,7 +3,10 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+test.http
+
 # User-specific files
+
 *.rsuser
 *.suo
 *.user
@@ -348,3 +351,8 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+
+api/CustomerAPI/appsettings.Development.json
+
+infrastructure/swapi.bicep
+test.http
