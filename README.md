@@ -24,7 +24,8 @@ This hackathon is directed towards developers that want to learn how to setup a 
 - Azure subscription with RBAC Owner role or a resourcegroup with RBAC Owner role. If the later is used the resourcegroup naming convention must be "rg-[six letters]" e.g. "rg-majnor". 
 - A Service principal with RBAC Owner role on the resourcegroup to be used.   
 - VS Code installed locally with the extensions "Bicep" and "REST Client".
-- Latest version of Azure CLI installed.   
+- Latest version of Azure CLI installed. 
+- A GitHub account is needed.   
 
 ## Getting started
 
