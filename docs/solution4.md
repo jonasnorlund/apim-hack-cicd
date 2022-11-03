@@ -6,6 +6,7 @@ Start with creating an empty main.yml file in .github/workflows/
 The GitHub Action wokflow that you will create consists of the following parts: trigger, name, environment variables, job and steps. 
 The first part includes trigger, name and jobs
 Make sure you set your postfix by replacing [YOUR POSTFIX].
+It's very important that the structure (indentation) is correct in the yaml file. You could use [http://www.yamllint.com](http://www.yamllint.com) to validate your yaml file.
 
 ```yaml
 on:

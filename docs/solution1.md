@@ -8,6 +8,15 @@ Either use a Service Principal or a user that has Owner rights on the subscripti
 
 ### Login to Azure 
 <br>
+
+Open the cloned folder in VS Code and use a Terminal in VS Code for all the Azure CLI commands.  
+
+> **Note**
+> 
+> If you are using bash you need to use single quotes '' for app-id, password and tenant. 
+>
+
+
 Login to Azure using a Service Principal
 
 ```shell
@@ -37,6 +46,12 @@ az account show
 ### Create a resourcegroup
 <br>
 Create a resourcegroup using Azure CLI. Choose a six letters that will be used through the hackathon, it will be a postfix for all service names. For example, use you first three letters of your firstname and lastname. e.g "John Doe" --> johdoe. 
+
+<br>
+
+Important, use only small caps for your postfix.
+
+<br>
 
 All services will be created in North Europe datacenter region. If you prefer another region make sure all services are available there. 
 
