@@ -29,7 +29,7 @@ This hackathon is directed towards developers that want to learn how to setup a 
 
 ## Getting started
 
-* This repo needs to be forked and cloned to to use it locally, see more [here](https://docs.github.com/en/get-started/quickstart/fork-a-repo#forking-a-repository)  
+* This repo needs to be **forked and cloned** to to use it locally, see more [here](https://docs.github.com/en/get-started/quickstart/fork-a-repo#forking-a-repository)  
 
 ### Fork and clone the repository
 
