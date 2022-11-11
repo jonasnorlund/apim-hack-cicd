@@ -1,17 +1,28 @@
-#on: [workflow_dispatch]
+name: Customer Api
 on:
  push:
-   paths:
-     - 'api/CustomerAPI/**'
-     - '.github/workflows/*'
-
-name: Customer Api
+      branches-ignore:
+        - 'main'
+      paths:
+        - 'api/CustomerAPI/**' 
+        - '.github/workflows/*'     
+ workflow_call:
+    inputs:
+     environment:
+        type: string
+        description: 'Name of the environment'
+        default: ''
+     name:
+        type: string
+        description: 'Name of the environment'
+        default: 'majnor'
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    environment: ${{inputs.environment}}
     env:
       directory: api/CustomerAPI
-      name: majnor
+      name: ${{ inputs.name }}
       
     steps:
     - uses: actions/checkout@main
@@ -48,7 +59,7 @@ jobs:
       with:
         subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}   # Subscription Id
         resourceGroupName: rg-${{ env.name }}               # Resource group
+        directory: ${{ env.directory }}                     # Directory of the ARM template
         template: ${{ env.directory }}/Bicep/main.bicep     # File to deploy
         parameters: dockerimagetag=${{ github.run_number }} name=${{ env.name }} apidefinitionurl=https://stg${{ env.name }}hack.blob.core.windows.net/apidefinitions/swagger.json?${{ secrets.AZURE_BLOB_SAS_TOKEN }}
         failOnStdErr: false
-
