@@ -42,3 +42,4 @@ To validate this, you will create a new operation in the Customer API and deploy
 * [Challenge 4: Create a CI/CD GitHub Action and deploy to Container Apps](challenge4.md)
 * [Challenge 5: Use the CI/CD GitHub Action to deploy changes to APIM](challenge5.md)
 * [Challenge 6: Add a policy using Bicep](challenge6.md)
+* [Challenge 7: Managing Development/Production environments.](challenge7.md)
