@@ -35,6 +35,7 @@ You also need to add GitHub secrets that will be used in later challenges.
 
 - [How to deploy resources with Bicep and Azure CLI](https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/deploy-cli)
 - [GitHub secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets)
+- [Strong Passwords - Azure SQL](https://learn.microsoft.com/en-us/sql/relational-databases/security/strong-passwords?view=sql-server-ver16)
 
 ## Solution
 - View the solution here, [Challenge 1 - Solution](solution1.md) 
