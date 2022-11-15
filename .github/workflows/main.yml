@@ -41,7 +41,7 @@ jobs:
       with:
         azcliversion: latest
         inlineScript: |
-          az storage blob upload -f $GITHUB_WORKSPACE/api/CustomerAPI/swagger-output/swagger.json -n swagger.json -c apidefinitions --overwrite --connection-string ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
+          az storage blob upload -f $GITHUB_WORKSPACE/api/CustomerAPI/swagger-output/swagger.json -n swagger.json -c apidefinitions --overwrite --connection-string "${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}"
 
     - name: Deploy API to Azure Container Apps 
       uses: azure/arm-deploy@v1
