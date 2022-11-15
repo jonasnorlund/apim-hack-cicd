@@ -3,7 +3,11 @@
 ## Solution steps
 
 To setup the environment you will use Azure CLI from VS Code.
-Either use a Service Principal or a user that has Owner rights on the subscription. The owner RBAC is required because you will create a User Assigned Managed Identity and apply role assignments to the identity. 
+Either use a Service Principal or a user that has Owner rights on the subscription. The owner RBAC is required because you will create a User Assigned Managed Identity and apply role assignments to the identity.
+
+> **Note**
+> You may run the deployment steps as a user with Owner rights but a Service Principal is still required when configuring the GitHub Actions.
+> 
 
 
 ### Login to Azure 

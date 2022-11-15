@@ -4,7 +4,7 @@
 
 Open customer.bicep in VS Code and add the following code. 
 
-```bash
+```bicep
 var operation_policy_xml = '''<policies>
 <inbound>
         <base />  
@@ -55,7 +55,7 @@ The next step is to add the first policy to the "api/customers-GET" operation. H
 
 Add the following code to customerapi.bicep to reference the operation. 
 
-```bash
+```bicep
 resource operation 'Microsoft.ApiManagement/service/apis/operations@2021-08-01' existing = {
   name: 'get-api-customers'
   parent:api
@@ -65,7 +65,7 @@ resource operation 'Microsoft.ApiManagement/service/apis/operations@2021-08-01' 
 The next step is to add the policies to the operation/api. Name must be 'policy' and parent should be different depending on if you want to add the policy to the operation or api. 
  
 
-```bash
+```bicep
 resource api_policy 'Microsoft.ApiManagement/service/apis/policies@2021-08-01' = {
   name: 'policy'
   parent:api
