@@ -48,18 +48,10 @@ Let's change our deployment job so that it becomes re-usable. Open the main.yml 
       inputs:
        environment:
         type: string
-        default: ''                                #Leave this empty by default, this will ensure that the base repo secrets are used for deployment to DEV (i.e. no Environment)
         description: 'Name of the environment'
        name:
         type: string
-        default: [YOUR POSTFIX]                    
         description: 'Suffix to use'
-    push:
-      branches-ignore:
-        - 'main'
-      paths:
-        - 'api/CustomerAPI/**' 
-        - '.github/workflows/*'
   jobs:
     build-and-deploy:
       runs-on: ubuntu-latest
@@ -88,12 +80,32 @@ jobs:
     with:
       name: [YOUR POSTFIX]prod
       environment: 'prod'                       #Set the envrionment to prod to ensure that we use use secrets from the prod GitHub Environment
+
+```
+Add another file called dev.yml in .github/workflows with the following contents:
+```yaml
+name: Dev deploy
+on:
+  push:
+    branches-ignore:
+    - 'main'
+    paths:
+    - 'api/CustomerAPI/**' 
+    - '.github/workflows/*'
+jobs:
+   deploy_to_prod:
+    name: 'Dev deployment'
+    uses: ./.github/workflows/main.yml         #Call the existing workflow 
+    secrets: inherit
+    with:
+      name: [YOUR POSTFIX]
+      environment: ''   
 ```
 Commit and push the changes.
 
-We've changed the original job to be callable by other workflows with the workflow_call trigger. We've also made sure that it still runs CI/CD to our dev environment when a commit is made to any other branch except main. 
+We've changed the original job to be callable by other workflows with the workflow_call trigger. The new production deploy workflow re-uses our CI/CD workflow on pushes to main, but sets the environment to prod. It is executed as soon as new code is pushed to the main branch.
 
-The new production deploy workflow re-uses our CI/CD workflow on pushes to main, but sets the environment to prod. It is executed as soon as new code is pushed to the main branch.
+Another CI/CD workflow has been added that also re-uses the original workflow but deploys to the DEV environment.
 
 ### Protect the main branch
 Since we're now automatically deploying all code changes from main to production, we should establish a review process. You will now proctect the main branch to ensure that changes are reviewed before they can be merged to main. 
