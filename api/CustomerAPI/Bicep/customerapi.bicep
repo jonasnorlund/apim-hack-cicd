@@ -97,3 +97,63 @@ resource api 'Microsoft.ApiManagement/service/apis@2021-08-01' = {
     apiType:'http'
   }
 }
+
+var operation_policy_xml = '''<policies>
+<inbound>
+        <base />  
+</inbound>
+<backend>
+        <base />
+</backend>
+<outbound>
+        <base />
+        <set-header name="myheader" exists-action="append">
+          <value>apimhack</value>
+        </set-header>
+</outbound>
+<on-error>
+        <base />
+</on-error>
+</policies>
+'''
+
+var api_policy_xml = '''<policies>
+<inbound>
+        <base />
+        <include-fragment fragment-id="RemoveApiKey" />
+</inbound>
+<backend>
+        <base />
+</backend>
+<outbound>
+        <base />
+</outbound>
+<on-error>
+        <base />
+</on-error>
+</policies>
+'''
+
+resource operation 'Microsoft.ApiManagement/service/apis/operations@2021-08-01' existing = {
+  name: 'get-api-customers'
+  parent: api
+}
+
+resource api_policy 'Microsoft.ApiManagement/service/apis/policies@2021-08-01' = {
+  name: 'policy'
+  parent:api
+  properties: {
+    value: api_policy_xml
+    format: 'xml' 
+  }
+}
+
+resource operation_policy 'Microsoft.ApiManagement/service/apis/operations/policies@2021-08-01' = {
+  name: 'policy'
+  parent:operation
+  properties:{
+    value: operation_policy_xml
+    format: 'xml'
+  }
+
+}
