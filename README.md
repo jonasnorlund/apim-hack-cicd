@@ -86,7 +86,7 @@ The hackathon is divided into six challenges. Each challenge consist of the foll
 * [Challenge 4: Create a CI/CD Github Action and deploy to Container Apps](docs/challenge4.md)
 * [Challenge 5: Use the CI/CD Github Action to deploy changes to APIM](docs/challenge5.md)
 * [Challenge 6: Add a policy using Bicep](docs/challenge6.md)
-* [Challenge 7: Managing Development/Production environments.](challenge7.md)
+* [Challenge 7: Managing Development/Production environments.](docs/challenge7.md)
 * TODO : Challenge 8: Using APIM to validate JWT tokens in a OAuth2 scenario.
 
 

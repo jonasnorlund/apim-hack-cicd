@@ -89,6 +89,8 @@ jobs:
       name: [YOUR POSTFIX]prod
       environment: 'prod'                       #Set the envrionment to prod to ensure that we use use secrets from the prod GitHub Environment
 ```
+Commit and push the changes.
+
 We've changed the original job to be callable by other workflows with the workflow_call trigger. We've also made sure that it still runs CI/CD to our dev environment when a commit is made to any other branch except main. 
 
 The new production deploy workflow re-uses our CI/CD workflow on pushes to main, but sets the environment to prod. It is executed as soon as new code is pushed to the main branch.
@@ -139,10 +141,12 @@ if (country != "sweden" && country != "denmark" && country != "norway" && countr
 
 For the complete file, see [docs/ch7-AddressAttribute.cs](ch7-AddressAttribute.cs)
 
-Commit the changes and then click Publish Branch.
+Commit the changes and then click Publish Branch. This should trigger the dev deployment workflow.
 
 ### Create a Pull Request
 Login to your GitHub account and navigate to the repository. 
+
+Navigate to Settings --> Branches. Under Branch protection rules, click the edit button next to "main". In the protect matching branches section,  *uncheck* the "Do not allow bypassing the above settings". Then click the "Save changes" button. This will enable us to merge a Pull Request without approval (since you're doing this hack individually, you will not have anyone who can approve your changes)
 
 On the repo home page, you will see a prompt to create a Pull Request<br>
 ![run](img/ch7-6.png)
@@ -155,7 +159,7 @@ Click "Merge pull request" and then "Confirm merge".
 
 Validate that the Production deploy workflow is triggered and pushes your code change to the production environment.
 
-Once deployment completes, you can validate it using validate.http by adding a new line that creates a customer with an 
+Once deployment completes, you can validate it using validate.http by adding a new line that creates a customer with an Icelandic address and phone number.
 
 ```
 ### 
