@@ -41,6 +41,14 @@ var api_policy_xml = '''<policies>
 </policies>
 '''
 
+var remove_apim_key_xml = '''
+<fragment>
+  <set-header name="Ocp-Apim-Subscription-Key" exists-action="override">
+	  <value> </value>
+  </set-header>
+</fragment>
+'''
+
 ```
 
 Working with policies in Bicep can be tricky especially if you need to work with variables inside the policies. Beware of the escaping rules using single quotes, it takes a while to understand how escaping quotes works but after you have figured that out it works like a charm.  
@@ -69,6 +77,9 @@ The next step is to add the policies to the operation/api. Name must be 'policy'
 resource api_policy 'Microsoft.ApiManagement/service/apis/policies@2021-08-01' = {
   name: 'policy'
   parent:api
+  dependsOn: [
+    remove_apim_key
+  ]
   properties: {
     value: api_policy_xml
     format: 'xml' 
@@ -84,8 +95,17 @@ resource operation_policy 'Microsoft.ApiManagement/service/apis/operations/polic
   }
 
 }
+resource remove_apim_key 'Microsoft.ApiManagement/service/policyFragments@2021-12-01-preview' = {
+  name: 'RemoveApimKey'
+  parent: apim
+  properties: {
+    description: 'Removes the API Management Key from the request'
+    format: 'xml'
+    value: remove_apim_key_xml
+  }
+}
 ```
-
+Finally, the remove_apim_key resource deploys the policy fragment that we added manually in the portal. We will need it when we deploy the production environment in challenge 7.
 Commit and push the changes, monitor the workflow in GitHub.
 
 Use VS code to validate that the request header "myheader" has been added to the response. Check the traces that the API key has been removed from the call to the backend api. 

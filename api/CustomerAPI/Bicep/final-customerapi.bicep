@@ -108,6 +108,9 @@ resource operation 'Microsoft.ApiManagement/service/apis/operations@2021-08-01' 
 resource api_policy 'Microsoft.ApiManagement/service/apis/policies@2021-08-01' = {
   name: 'policy'
   parent:api
+  dependsOn: [
+    remove_apim_key
+  ]
   properties: {
     value: api_policy_xml
     format: 'xml' 
@@ -123,7 +126,23 @@ resource operation_policy 'Microsoft.ApiManagement/service/apis/operations/polic
   }
 
 }
+resource remove_apim_key 'Microsoft.ApiManagement/service/policyFragments@2021-12-01-preview' = {
+  name: 'RemoveApimKey'
+  parent: apim
+  properties: {
+    description: 'Removes the API Management Key from the request'
+    format: 'xml'
+    value: remove_apim_key_xml
+  }
+}
 
+var remove_apim_key_xml = '''
+<fragment>
+  <set-header name="Ocp-Apim-Subscription-Key" exists-action="override">
+	  <value> </value>
+  </set-header>
+</fragment>
+'''
 
 var operation_policy_xml = '''<policies>
 <inbound>
