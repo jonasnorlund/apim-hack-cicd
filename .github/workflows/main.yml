@@ -1,0 +1,22 @@
+on: [workflow_dispatch]
+#on:
+#  push:                             # Workflow will start when code is pushed into this repo
+#    paths:
+#      - 'api/CustomerAPI/**' 
+#      - '.github/workflows/*'
+
+name: Customer Api                  # Name of the workflow
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest          # Base image to be used for the GitHub runner
+    env:                            # List of environment variables
+      directory: api/CustomerAPI    # the path of the Customer API 
+      name: apimws                  # Your POSTFIX
+
+    steps:
+    - uses: actions/checkout@main       # Checkout the code to the GitHub runner 
+    
+    - name: Log into Azure              # Log into Azure using the service credentials provided earlier
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
