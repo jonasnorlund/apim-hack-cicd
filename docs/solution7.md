@@ -93,7 +93,7 @@ on:
     - 'api/CustomerAPI/**' 
     - '.github/workflows/*'
 jobs:
-   deploy_to_prod:
+   deploy_to_dev:
     name: 'Dev deployment'
     uses: ./.github/workflows/main.yml         #Call the existing workflow 
     secrets: inherit
