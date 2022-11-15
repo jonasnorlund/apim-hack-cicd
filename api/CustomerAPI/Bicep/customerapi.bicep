@@ -81,3 +81,19 @@ resource ca_customerapi 'Microsoft.App/containerApps@2022-03-01' = {
     }
   }
 }
+
+resource api 'Microsoft.ApiManagement/service/apis@2021-08-01' = {
+  parent: apim                  // Uses the reference to APIM
+  name: 'customerapi'
+  properties:{
+    serviceUrl: 'https://${ca_customerapi.properties.configuration.ingress.fqdn}' // gets the url from Container Apps
+    format: 'openapi+json-link'
+    value: apidefinitionurl     // Uses the input parameter from the GitHub workflow. 
+    displayName: 'Customer API'
+    path: 'ch5'
+    protocols:[
+      'https'
+    ]
+    apiType:'http'
+  }
+}
