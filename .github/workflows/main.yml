@@ -1,9 +1,9 @@
-on: [workflow_dispatch]
-#on:
-#  push:                             # Workflow will start when code is pushed into this repo
-#    paths:
-#      - 'api/CustomerAPI/**' 
-#      - '.github/workflows/*'
+#on: [workflow_dispatch]
+on:
+ push:                             # Workflow will start when code is pushed into this repo
+   paths:
+     - 'api/CustomerAPI/**' 
+     - '.github/workflows/*'
 
 name: Customer Api                  # Name of the workflow
 jobs:
