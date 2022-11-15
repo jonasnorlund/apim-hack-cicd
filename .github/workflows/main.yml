@@ -32,7 +32,7 @@ jobs:
       uses: azure/arm-deploy@v1
       with:
         subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}   # Subscription Id
-        resourceGroupName: rg-${{ env.name }}               # Resource group
+        resourceGroupName: rg-apim-workshop              # Resource group
         template: ${{ env.directory }}/Bicep/main.bicep     # File to deploy
         parameters: dockerimagetag=${{ github.run_number }} name=${{ env.name }}  # Parameters
         failOnStdErr: false
