@@ -114,5 +114,17 @@ namespace CustomerAPI.Controllers
             return Ok();
         }
 
+        [HttpGet("getcustomerbyemail/{email}", Name = "GetCustomerByEmail")]
+        public async Task<IActionResult> GetCustomerByEmail(string email)
+        {
+            var customer = await Task.FromResult(_customerRepository.GetCustomerByEmail(email)).Result;
+            if (customer == null)
+                return NotFound();
+
+            _logger.LogInformation("Fetching a single customer by email");
+
+            return Ok(_mapper.Map<CustomerDto>(customer));
+        }
+
     }
 }
