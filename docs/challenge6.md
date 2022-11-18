@@ -3,11 +3,19 @@
 Policies in APIM are small code snippets that can be applied on different levels (Global, Product, API, Operation) either on the inbound side or the outbound side. Policies can then change the behaviour of the API. IN this challenge you will use Bicep to apply a policy that sets a custom request header. 
 
 
+
+
 > **Note**
 > 
 > Bicep, compared to Terraform, doesn't have a separate state compared to what is already deployed in Azure. During deployment Bicep compares the current state in Azure with the defined state in the Bicep configuration. The result of this is that only changes are applied. However, when it comes to Policies in APIM the XML-style code snippets are formatted after deployment which results that policies are always redeployed, even if no changes are done. This is a known issue which the product team is aware of.  
 >
 
+The following image illustrates the steps in this challenge
+<br>
+
+  ![Azure services](img/ch6-overview.png)
+
+<br>
 
 ## Main objectives
 

@@ -4,6 +4,14 @@ The Customer API is now deployed to Container Apps, the next step is to expose t
 After this has been done you have a complete CI/CD workflow which will enable you to deploy changes faster. 
 To validate this, you will create a new operation in the Customer API and deploy the changes using your finalized CI/CD workflow.   
 
+The following image illustrates the steps in this challenge
+<br>
+
+  ![Azure services](img/ch5-overview.png)
+
+<br>
+
+
 ## Main objectives
 
 - Continue with the GitHub Action to create a complete CI/CD workflow. 
