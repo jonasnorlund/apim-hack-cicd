@@ -3,6 +3,13 @@
 Until now you have worked with publicly available API's, now its time to work with the API that is located in this repo under api/CustomerAPI. It's a simple .net Core 6.0 API that has been forked and modified from https://github.com/Vivekkosare/CustomerAPI (kudos [@VKosare](https://twitter.com/VKosare)). 
 In this challenge you will use a GitHub Action to first build and push the code to an Azure Container Registry. Once that is done you will deploy the container image to Azure Container Apps using Bicep.    
 
+The following image illustrates the steps in this challenge
+<br>
+
+  ![Azure services](img/ch4-overview.png)
+
+<br>
+
 ## Main objectives
 
 - Create a GitHub Action workflow and use Azure Container Registry to build and create a docker image. 

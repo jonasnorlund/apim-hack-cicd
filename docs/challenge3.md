@@ -2,6 +2,13 @@
 
 In this challenge you will use Bicep to deploy the Starwars API. The swagger definition for this API is in your storage account. Instead of adding a request header you will remove sensitive information from the outgoing call to the backend service using a Policy fragment. Policy fragments is a feature that let you create policies centrally and then reference them in your API's.
 
+The following image illustrates the steps in this challenge
+<br>
+
+  ![Azure services](img/ch3-overview.png)
+
+<br>
+
 ## Main objectives
 
 - Deploy the Starwars API using Bicep from VS Code.

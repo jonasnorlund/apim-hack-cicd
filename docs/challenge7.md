@@ -3,6 +3,14 @@
 You have completed a CI/CD workflow which will enable you to deploy changes in a fast an reliable way to a DEV environment. 
 Now, it's time to move your API to production. After completing this challenge, you will have a new workflow that To validate this, you will create a new operation in the Customer API and deploy the changes using your finalized CI/CD workflow.   
 
+The following image illustrates the steps in this challenge
+<br>
+
+  ![Azure services](img/ch7-overview.png)
+
+<br>
+
+
 ## Main objectives
 
 - Add a GitHub Environment to your GitHub repository to ensure that secrets for the production environment are stored separately 

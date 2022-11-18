@@ -9,8 +9,10 @@ The hackathon uses GitHub Actions to create a complete CI/CD workflow for APIs d
 * Azure Key vault
 * Azure Container Registry  
 * Storage account
- 
-  ![Azure services](docs/img/services.png)
+
+Once this hackathon is completed you should have an Architecture that looks something like the diagram below.
+
+  ![Azure services](docs/img/architecture.png)
 
 
 ## Target audience

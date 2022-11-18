@@ -1,6 +1,13 @@
 # Challenge 2: Get familiar with Azure API Management (APIM)
 
-This challenge will help you to get more familiar with Azure API management (APIM). You will import a publicly available swagger definition manually in the Azure portal. Add a policy in APIM that adds a custom http header to your request. After you have done this, you will verify that this works using the VS Code plugin "REST Client".    
+This challenge will help you to get more familiar with Azure API management (APIM). You will import a publicly available swagger definition manually in the Azure portal. Add a policy in APIM that adds a custom http header to your request. After you have done this, you will verify that this works using the VS Code plugin "REST Client".  
+
+The following image illustrates the steps in this challenge
+<br>
+
+  ![Azure services](img/ch2-overview.png)
+
+<br>
 
 ## Main objectives
 

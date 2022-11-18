@@ -1,10 +1,12 @@
 # Challenge 1: Setup the environment
 
 You will use Bicep to deploy the Azure services that you will work with. Bicep is a declarative language that sits on top of Azure Resource Manager (ARM). There are many similarities to Terraform but one big difference is that it doesn't require any state management.
-You also need to add GitHub secrets that will be used in later challenges.    
+You also need to add GitHub secrets that will be used in later challenges. 
+
+The following image illustrates the steps in this challenge
 <br>
 
-  ![Azure services](img/services.png)
+  ![Azure services](img/ch1-overview.png)
 
 <br>
 
