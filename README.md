@@ -1,6 +1,12 @@
 # Azure API Management CI/CD hack with GitHub
 
-The hackathon uses GitHub Actions to create a complete CI/CD workflow for APIs deployed in Azure API Management. Bicep is used to setup the Azure services that is being used. The following services are being used: 
+The hackathon uses GitHub Actions to create a complete CI/CD workflow for APIs deployed in Azure API Management. 
+
+The following image illustrates the conceputal architecture.
+
+  ![Conceptual architecture](docs/img/conceptual-architecture.png)
+
+Bicep is used to setup the Azure services that is being used. The following services are being used: 
 * Azure API Management (consumption)
 * Azure Container Apps
 * Azure SQL Database (serverless)
