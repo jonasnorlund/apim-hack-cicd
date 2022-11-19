@@ -6,7 +6,6 @@ The following image illustrates the conceputal architecture.
 
   ![Conceptual architecture](docs/img/conceptual-architecture.png)
 
-
 Bicep is used to setup the Azure services that is being used. The following services are being used: 
 * Azure API Management (consumption)
 * Azure Container Apps
