@@ -22,7 +22,7 @@ This step will build the API and generate a swagger file that you need to upload
       with:
         azcliversion: latest
         inlineScript: |
-          az storage blob upload -f $GITHUB_WORKSPACE/api/CustomerAPI/swagger-output/swagger.json -n swagger.json -c apidefinitions --overwrite --connection-string ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
+          az storage blob upload -f $GITHUB_WORKSPACE/api/CustomerAPI/swagger-output/swagger.json -n swagger.json -c apidefinitions --overwrite --connection-string "${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}"
 ```
 This step uses Azure CLI to upload the generated swagger file to your blob storage. 
 Now you need to provide the url to the swagger file as a parameter into the Bicep deployment. 
