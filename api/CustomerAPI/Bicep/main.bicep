@@ -3,8 +3,6 @@ param location string = resourceGroup().location
 param dockerimagetag string
 param apidefinitionurl string = '' 
 
-
-
 resource kv 'Microsoft.KeyVault/vaults@2022-07-01' existing = {
   name: 'kv-${name}'
 }

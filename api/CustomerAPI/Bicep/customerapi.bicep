@@ -5,6 +5,7 @@ param apidefinitionurl string = ''
 @secure()
 param db_connectionstring string
 
+// Variable
 var appname = 'ca-customerapi'
 
 // existing resources
@@ -46,7 +47,7 @@ resource ca_customerapi 'Microsoft.App/containerApps@2022-03-01' = {
       registries: [
         {
           identity: uami.id             // reference to the managed identity, this is used to authenticate against Azure Container Registry     
-          server: acr.properties.loginServer # Azure Container Registry
+          server: acr.properties.loginServer // Azure Container Registry
         }
       ]
       secrets: [
