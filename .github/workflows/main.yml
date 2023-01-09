@@ -1,0 +1,24 @@
+on: [workflow_dispatch]
+
+# on:
+#   push:
+#     paths:
+#       - 'api/CustomerAPI/**'
+#       - '.github/workflows/*'
+
+name: Customer API
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    env:
+      directory: api/CustomerAPI
+      name: oligul
+
+    steps:
+    - uses: actions/checkout@main
+
+    - name: Log into Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
