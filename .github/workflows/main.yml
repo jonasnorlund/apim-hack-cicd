@@ -1,10 +1,10 @@
-on: [workflow_dispatch]
+# on: [workflow_dispatch]
 
-# on:
-#   push:
-#     paths:
-#       - 'api/CustomerAPI/**'
-#       - '.github/workflows/*'
+on:
+  push:
+    paths:
+      - 'api/CustomerAPI/**'
+      - '.github/workflows/*'
 
 name: Customer API
 
@@ -29,3 +29,12 @@ jobs:
         azcliversion: latest
         inlineScript: |
           az acr build --registry acr${{ env.name }}.azurecr.io --image customerapi:${{ github.run_number }} . -f api/CustomerAPI/Dockerfile
+
+    - name: Deploy API to Azure Container Apps
+      uses: azure/arm-deploy@v1
+      with:
+        subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }} # Subscription ID
+        resourceGroupName: rg-${{ env.name }} # Resource Group Name
+        template: ${{ env.directory }}/Bicep/main.bicep # Path to Bicep file
+        parameters: dockerimagetag=${{ github.run_number }} name=${{ env.name }} # Parameter to pass to Bicep file
+        failOnStderr: false
