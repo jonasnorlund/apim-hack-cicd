@@ -7,7 +7,7 @@ resource kv 'Microsoft.KeyVault/vaults@2022-07-01' existing = {
   name: 'kv-${name}'
 }
 
-module customerapi 'customerapi.bicep' = {
+module customerapi 'final-customerapi.bicep' = {
   name: 'customerapiDeploy'
   params: {
     db_connectionstring: kv.getSecret('dbconnection')

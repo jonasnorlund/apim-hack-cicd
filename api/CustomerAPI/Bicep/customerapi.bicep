@@ -98,3 +98,84 @@ resource api 'Microsoft.ApiManagement/service/apis@2021-08-01' = {
     apiType:'http'
   }
 }
+
+var operation_policy_xml = '''<policies>
+<inbound>
+        <base />  
+</inbound>
+<backend>
+        <base />
+</backend>
+<outbound>
+        <base />
+        <set-header name="myheader" exists-action="append">
+          <value>apimhack</value>
+        </set-header>
+</outbound>
+<on-error>
+        <base />
+</on-error>
+</policies>
+'''
+
+var api_policy_xml = '''<policies>
+<inbound>
+        <base />
+        <include-fragment fragment-id="RemoveApimKey" />
+</inbound>
+<backend>
+        <base />
+</backend>
+<outbound>
+        <base />
+</outbound>
+<on-error>
+        <base />
+</on-error>
+</policies>
+'''
+
+var remove_apim_key_xml = '''
+<fragment>
+  <set-header name="Ocp-Apim-Subscription-Key" exists-action="override">
+	  <value> </value>
+  </set-header>
+</fragment>
+'''
+
+resource operation 'Microsoft.ApiManagement/service/apis/operations@2021-08-01' existing = {
+  name: 'get-api-customers'
+  parent:api
+}
+
+resource api_policy 'Microsoft.ApiManagement/service/apis/policies@2021-08-01' = {
+  name: 'policy'
+  parent:api
+  dependsOn: [
+    remove_apim_key
+  ]
+  properties: {
+    value: api_policy_xml
+    format: 'xml' 
+  }
+}
+
+resource operation_policy 'Microsoft.ApiManagement/service/apis/operations/policies@2021-08-01' = {
+  name: 'policy'
+  parent:operation
+  properties:{
+    value: operation_policy_xml
+    format: 'xml'
+  }
+
+}
+resource remove_apim_key 'Microsoft.ApiManagement/service/policyFragments@2021-12-01-preview' = {
+  name: 'RemoveApimKey'
+  parent: apim
+  properties: {
+    description: 'Removes the API Management Key from the request'
+    format: 'xml'
+    value: remove_apim_key_xml
+  }
+}
+
