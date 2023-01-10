@@ -1,0 +1,17 @@
+name: Production deploy
+on:
+  push:
+    branches:
+    - 'main'
+    paths:
+      - 'api/CustomerAPI/**' 
+      - '.github/workflows/*' 
+
+jobs:
+   deploy_to_prod:
+    name: 'Production deployment'
+    uses: ./.github/workflows/main.yml         #Call the existing workflow 
+    secrets: inherit
+    with:
+      name: oligulprod
+      environment: 'prod'                       #Set the envrionment to prod to ensure that we use use secrets from the prod GitHub Environment

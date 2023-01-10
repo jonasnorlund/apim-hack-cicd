@@ -1,19 +1,30 @@
 # on: [workflow_dispatch]
 
-on:
-  push:
-    paths:
-      - 'api/CustomerAPI/**'
-      - '.github/workflows/*'
+# on:
+#   push:
+#     paths:
+#       - 'api/CustomerAPI/**'
+#       - '.github/workflows/*'
 
 name: Customer API
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        type: string
+        description: 'Name of the Environment'
+      name:
+        type: string
+        description: 'Suffix to use for naming resources'
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
     env:
       directory: api/CustomerAPI
-      name: oligul
+      name: ${{ inputs.name }}
 
     steps:
     - uses: actions/checkout@main
