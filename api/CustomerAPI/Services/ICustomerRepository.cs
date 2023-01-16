@@ -19,7 +19,6 @@ namespace CustomerAPI.Services
         void UpdateCustomer(Customer customer);
 
         void DeleteCustomer(Customer customer);
-
-        
+        Task<Customer> GetCustomerByEmail(string email);        
     }
 }
