@@ -27,6 +27,21 @@ jobs:
         azcliversion: latest
         inlineScript: |
           az acr build --registry acr${{ env.name }}.azurecr.io --image customerapi:${{ github.run_number }} . -f api/CustomerAPI/Dockerfile 
+    
+    - name: Use dotnet tools to build and generate swagger
+      run: |
+        dotnet tool restore --tool-manifest .config/dotnet-tools.json
+        dotnet restore 
+        dotnet build
+        dotnet swagger tofile --output $GITHUB_WORKSPACE/api/CustomerAPI/swagger-output/swagger.json $GITHUB_WORKSPACE/api/CustomerAPI/bin/Debug/net6.0/CustomerAPI.dll v1
+      working-directory: ${{ env.directory }}
+
+    - name: Upload swagger to Azure storage account
+      uses: azure/CLI@v1
+      with:
+        azcliversion: latest
+        inlineScript: |
+          az storage blob upload -f $GITHUB_WORKSPACE/api/CustomerAPI/swagger-output/swagger.json -n swagger.json -c apidefinitions --overwrite --connection-string ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
 
     - name: Deploy API to Azure Container Apps 
       uses: azure/arm-deploy@v1
@@ -34,5 +49,5 @@ jobs:
         subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}   # Subscription Id
         resourceGroupName: rg-${{ env.name }}               # Resource group
         template: ${{ env.directory }}/Bicep/main.bicep     # File to deploy
-        parameters: dockerimagetag=${{ github.run_number }} name=${{ env.name }}  # Parameters
+        parameters: dockerimagetag=${{ github.run_number }} name=${{ env.name }} apidefinitionurl=https://stg${{ env.name }}hack.blob.core.windows.net/apidefinitions/swagger.json?${{ secrets.AZURE_BLOB_SAS_TOKEN }}
         failOnStdErr: false
