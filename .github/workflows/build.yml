@@ -1,0 +1,38 @@
+on:
+  #[workflow_dispatch]
+  push:                             # Workflow will start when code is pushed into this repo
+    paths:
+      - 'api/CustomerAPI/**'          # Only changes in and below this path will trigger this workflow
+      - '.github/workflows/*'
+
+name: Customer Api                  # Name of the workflow
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest          # Base image to be used for the GitHub runner
+    env:                            # List of environment variables
+      directory: api/CustomerAPI    # the path of the Customer API 
+      name: 'hapiops'               # Your POSTFIX
+
+    steps:
+    - uses: actions/checkout@main       # Checkout the code to the GitHub runner 
+
+    - name: Log into Azure              # Log into Azure using the service credentials provided earlier
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+        
+    - name: Build image with Azure Container Registry
+      uses: azure/CLI@v1
+      with:
+        azcliversion: latest
+        inlineScript: |
+          az acr build --registry acr${{ env.name }}.azurecr.io --image customerapi:${{ github.run_number }} . -f api/CustomerAPI/Dockerfile 
+
+    - name: Deploy API to Azure Container Apps 
+      uses: azure/arm-deploy@v1
+      with:
+        subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}   # Subscription Id
+        resourceGroupName: rg-${{ env.name }}               # Resource group
+        template: ${{ env.directory }}/Bicep/main.bicep     # File to deploy
+        parameters: dockerimagetag=${{ github.run_number }} name=${{ env.name }}  # Parameters
+        failOnStdErr: false
