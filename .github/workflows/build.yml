@@ -1,28 +1,22 @@
-# This workflow will build a .NET project
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
-
-name: .NET
-
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+  [workflow_dispatch]
+  #push:                             # Workflow will start when code is pushed into this repo
+  #  paths:
+  #    - 'api/CustomerAPI/**'          # Only changes in and below this path will trigger this workflow
+  #    - '.github/workflows/*'
 
+name: Customer Api                  # Name of the workflow
 jobs:
-  build:
-
-    runs-on: ubuntu-latest
+  build-and-deploy:
+    runs-on: ubuntu-latest          # Base image to be used for the GitHub runner
+    env:                            # List of environment variables
+      directory: api/CustomerAPI    # the path of the Customer API 
+      name: 'hapiops'               # Your POSTFIX
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v3
+    - uses: actions/checkout@main       # Checkout the code to the GitHub runner 
+
+    - name: Log into Azure              # Log into Azure using the service credentials provided earlier
+      uses: azure/login@v1
       with:
-        dotnet-version: 6.0.x
-    - name: Restore dependencies
-      run: dotnet restore
-    - name: Build
-      run: dotnet build --no-restore
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
