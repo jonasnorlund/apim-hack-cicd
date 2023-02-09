@@ -68,7 +68,7 @@ on:
   push:
     branches:
     - 'main'
-  paths:
+    paths:
     - 'api/CustomerAPI/**' 
     - '.github/workflows/*' 
 
